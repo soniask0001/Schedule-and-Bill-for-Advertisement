@@ -1,0 +1,586 @@
+/* Base resets and global setups */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: "Montserrat", Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    background: #f4f6fb;
+    color: #111827;
+    padding-bottom: 90px; /* Leave room for the sticky bottom bar */
+}
+
+/* Page structural wrapper */
+.wrap {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 52px;
+}
+
+/* Main Site Header (Sticky navigation) */
+header {
+    background: #fff;
+    border-bottom: 3px solid #000;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    box-shadow: 0 1px 0 #e5e7eb;
+}
+header .wrap { padding-top: 12px; padding-bottom: 12px; }
+#logo { height: 64px; }
+
+/* Page Titles & Global Action Buttons */
+h2 {
+    display: inline-block;
+    font-size: 44px;
+    font-weight: 700;
+    margin-top: 40px;
+    padding: 8px 14px 24px;
+    line-height: 1.1;
+    /* Fancy underline effect using a background gradient stretch */
+    background-image: linear-gradient(#f64fd6, #f64fd6);
+    background-repeat: no-repeat;
+    background-size: 100% 14px;
+    background-position: 0 90%;
+}
+
+#btn-bar { padding: 22px 0 28px; }
+
+#btn-new-schedule {
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    padding: 13px 28px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 8px;
+    letter-spacing: 0.3px;
+    transition: background 0.15s, transform 0.1s;
+}
+#btn-new-schedule:hover  { background: #1d4ed8; }
+#btn-new-schedule:active { transform: scale(0.98); }
+
+/* Individual Schedule Component Cards */
+.schedule-block {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    margin-bottom: 28px;
+    overflow: hidden;
+}
+
+/* Dark top-bar inside the schedule block (stays visible when collapsed) */
+.schedule-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 24px;
+    background: #0f172a;
+    min-height: 68px;
+}
+
+/* Accordion collapse trigger */
+.btn-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #475569;
+    padding: 8px 6px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 6px;
+    transition: color 0.15s, background 0.15s;
+}
+.btn-toggle:hover { color: #cbd5e1; background: rgba(255,255,255,0.06); }
+.btn-toggle svg { transition: transform 0.22s ease; }
+.schedule-block.collapsed .btn-toggle svg { transform: rotate(-90deg); }
+
+.schedule-name {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(255,255,255,0.12);
+    color: #f1f5f9;
+    font-family: inherit;
+    font-size: 17px;
+    font-weight: 700;
+    padding: 6px 8px;
+    outline: none;
+    width: 230px;
+    flex-shrink: 0;
+    transition: border-color 0.15s;
+}
+.schedule-name:focus { border-bottom-color: #43d1bf; }
+
+/* Sticky summary pills inside the header tracking year totals */
+.header-stats {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: flex-end;
+    margin-right: 8px;
+}
+.hs-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 24px;
+    border-left: 1px solid rgba(255,255,255,0.07);
+    gap: 3px;
+}
+.hs-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #475569;
+}
+.hs-cost {
+    font-size: 17px;
+    font-weight: 700;
+    color: #e2e8f0;
+}
+.hs-total .hs-cost {
+    font-size: 20px;
+    color: #43d1bf;
+}
+
+.campaign-display {
+    font-size: 19px;
+    font-weight: 800;
+    color: #e2e8f0;
+}
+
+.btn-delete-schedule {
+    flex-shrink: 0;
+    background: none;
+    border: 1px solid rgba(255,255,255,0.14);
+    color: rgba(255,255,255,0.35);
+    padding: 6px 14px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 6px;
+    letter-spacing: 0.3px;
+    transition: all 0.15s;
+    white-space: nowrap;
+}
+.btn-delete-schedule:hover {
+    background: #dc2626;
+    border-color: #dc2626;
+    color: #fff;
+}
+
+/* Internal block structural sections (Step 1 and Step 2 wrapper layouts) */
+.step-section {
+    padding: 28px 36px;
+    border-bottom: 1px solid #f3f4f6;
+}
+.step-section:last-child { border-bottom: none; }
+
+.step-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #9ca3af;
+    margin-bottom: 20px;
+}
+.step-number {
+    background: #2563eb;
+    color: #fff;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+/* Step 1: Media Calculator Grid */
+.schedule-table-wrap { overflow-x: auto; }
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 13px;
+    min-width: 760px;
+}
+.schedule-table th,
+.schedule-table td {
+    padding: 11px 10px;
+    border: 1px solid #e5e7eb;
+    vertical-align: middle;
+    text-align: center;
+    width: 66px;
+}
+/* Explicit column tracking constraints to size out descriptions vs days */
+.schedule-table th:first-child,
+.schedule-table td:first-child { width: 200px; text-align: left; }
+.schedule-table th:nth-child(3),
+.schedule-table td:nth-child(3) { width: 80px; }
+
+.schedule-table thead th {
+    background: #0f172a;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    border-color: #1e293b;
+    text-transform: uppercase;
+}
+.schedule-table tfoot td {
+    background: #f9fafb;
+    font-weight: 700;
+    font-size: 13px;
+    border-color: #e5e7eb;
+    color: #374151;
+}
+.schedule-table tfoot .weekly-cost-display {
+    color: #2563eb;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+/* User edit feedback styles for active tracking cells */
+td[contenteditable="true"]:hover { background: #f0f7ff; }
+td[contenteditable="true"]:focus { outline: 2px solid #2563eb; outline-offset: -2px; background: #fff; }
+
+.daypart-column { display: flex; flex-direction: column; gap: 8px; }
+.daypart-add-btn {
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 9px;
+    cursor: pointer;
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: background 0.15s;
+}
+.daypart-add-btn:hover { background: #1d4ed8; }
+
+.btn-remove-row {
+    background: none;
+    border: 1px solid #fca5a5;
+    color: #ef4444;
+    font-size: 11px;
+    padding: 3px 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: all 0.15s;
+}
+.btn-remove-row:hover { background: #ef4444; color: #fff; border-color: #ef4444; }
+
+/* Step 2: Year Tab Navigation & Selection Controls */
+.year-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.year-tabs { display: flex; gap: 4px; }
+
+.year-tab {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    padding: 8px 20px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    color: #6b7280;
+    border-radius: 8px 8px 0 0;
+    transition: all 0.15s;
+}
+.year-tab:hover { background: #eff6ff; border-color: #93c5fd; color: #2563eb; }
+.year-tab.active { background: #2563eb; border-color: #2563eb; color: #fff; }
+.year-count { font-weight: 500; font-size: 12px; }
+
+.year-quick-btns { display: flex; gap: 8px; }
+.btn-all-year, .btn-clear-year {
+    padding: 7px 16px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    color: #6b7280;
+    border-radius: 8px;
+    transition: all 0.15s;
+}
+.btn-all-year:hover   { background: #eff6ff; border-color: #93c5fd; color: #2563eb; }
+.btn-clear-year:hover { background: #fef2f2; border-color: #fca5a5; color: #ef4444; }
+
+/* 52-Week Broadcast Calendar Matrix */
+.week-grids { overflow-x: auto; }
+
+.week-grid-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    border-top: 3px solid #2563eb;
+}
+.week-grid-table thead th {
+    background: #0f172a;
+    color: #64748b;
+    padding: 9px 12px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    border: 1px solid #1e293b;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+.week-grid-table thead .th-month { text-align: left; min-width: 64px; }
+.week-grid-table thead .th-quick { min-width: 58px; }
+.week-grid-table thead .th-cost  { text-align: right; min-width: 100px; }
+.week-grid-table tbody tr:hover { background: #fafbff; }
+
+.month-label-cell {
+    font-weight: 700;
+    font-size: 13px;
+    padding: 8px 12px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    white-space: nowrap;
+    color: #374151;
+}
+.week-cell {
+    border: 1px solid #e5e7eb;
+    text-align: center;
+    padding: 7px 6px;
+    cursor: pointer;
+    transition: background 0.1s;
+    min-width: 62px;
+}
+.week-cell:hover   { background: #eff6ff; }
+.week-cell.checked { background: #dbeafe; }
+.week-cell.checked .week-date-label { color: #1d4ed8; font-weight: 700; }
+
+.week-cell-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    pointer-events: none;
+}
+.week-date-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    pointer-events: none;
+    transition: color 0.1s;
+}
+.week-checkbox {
+    cursor: pointer;
+    accent-color: #2563eb;
+    transform: scale(1.2);
+    pointer-events: auto;
+}
+.empty-cell {
+    border: 1px solid #f3f4f6;
+    background: #fafafa;
+    min-width: 62px;
+}
+
+.month-quick-cell {
+    border: 1px solid #e5e7eb;
+    padding: 5px 7px;
+    background: #f9fafb;
+    text-align: center;
+    white-space: nowrap;
+}
+.btn-month-quick {
+    display: block;
+    width: 100%;
+    background: none;
+    border: 1px solid #e5e7eb;
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 6px;
+    cursor: pointer;
+    margin: 2px 0;
+    color: #9ca3af;
+    border-radius: 4px;
+    letter-spacing: 0.4px;
+    transition: all 0.1s;
+}
+.btn-month-quick:hover { background: #eff6ff; border-color: #93c5fd; color: #2563eb; }
+
+.month-cost-cell {
+    border: 1px solid #e5e7eb;
+    padding: 7px 12px;
+    text-align: right;
+    font-weight: 700;
+    font-size: 13px;
+    color: #2563eb;
+    white-space: nowrap;
+    min-width: 100px;
+    background: #f5f8ff;
+}
+
+.year-tfoot-cell {
+    padding: 10px 16px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    text-align: right;
+    font-size: 13px;
+    font-weight: 700;
+    color: #374151;
+}
+.year-total-label { color: #6366f1; }
+.year-total-weeks { color: #9ca3af; font-weight: 500; }
+.year-total-cost  { color: #2563eb; font-size: 14px; }
+
+/* Lower Cost Summary Cards (Individual Breakdown vs Total Dashboard) */
+.cost-summary {
+    display: flex;
+    gap: 14px;
+    margin-top: 28px;
+    padding-top: 28px;
+    border-top: 1px solid #e5e7eb;
+    flex-wrap: wrap;
+}
+
+.cost-card {
+    flex: 1;
+    min-width: 160px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+}
+
+/* Give the final aggregate card subtle styling to make it stand out */
+.campaign-card {
+    flex: 1.6;
+    background: #f0f7ff;
+    border-color: #bfdbfe;
+}
+
+.cc-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #9ca3af;
+    margin-bottom: 12px;
+}
+
+.year-stat-cost {
+    font-size: 28px;
+    font-weight: 800;
+    color: #111827;
+    line-height: 1;
+    flex: 1;
+}
+
+.year-stat-weeks {
+    font-size: 13px;
+    color: #9ca3af;
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+.body-campaign {
+    font-size: 40px;
+    font-weight: 800;
+    color: #2563eb;
+    line-height: 1;
+    flex: 1;
+    display: block;
+}
+
+.campaign-total-weeks-label {
+    font-size: 13px;
+    color: #6b7280;
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+/* Fixed Grand Total Control Footer Bar */
+#campaign-total-bar {
+    position: sticky;
+    bottom: 0;
+    background: #0f172a;
+    z-index: 100;
+    box-shadow: 0 -4px 24px rgba(0,0,0,0.20);
+    border-top: 1px solid #1e293b;
+}
+.bar-inner {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 18px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #475569;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+#campaign-total {
+    color: #43d1bf;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+/* Site Footer Controls */
+footer { padding: 32px 0 48px; }
+footer a {
+    background: #2563eb;
+    color: #fff;
+    padding: 10px 22px;
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 8px;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    transition: background 0.15s;
+}
+footer a:hover { background: #1d4ed8; }
+
+/* Large High-Res Desktop Media Breakpoints (1920px+) */
+@media (min-width: 1920px) {
+    .wrap  { max-width: 1700px; padding: 0 72px; }
+    body   { font-size: 16px; }
+    h2     { font-size: 54px; }
+    #logo  { height: 76px; }
+    .schedule-table th, .schedule-table td { font-size: 14px; padding: 13px 12px; }
+    .week-grid-table { font-size: 14px; }
+    .week-grid-table thead th { font-size: 12px; padding: 11px 14px; }
+    .week-cell { min-width: 74px; padding: 9px 8px; }
+    .week-date-label { font-size: 13px; }
+    .hs-cost { font-size: 19px; }
+    .hs-total .hs-cost { font-size: 22px; }
+    .year-stat-cost { font-size: 34px; }
+    .body-campaign { font-size: 48px; }
+    #campaign-total { font-size: 34px; }
+}
