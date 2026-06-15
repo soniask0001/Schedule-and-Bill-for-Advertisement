@@ -1,5 +1,5 @@
 **Project:** Ad Scheduler — TV & Radio (HTML/CSS/JS)  
-**For:** P48 Marketing Company  
+Collaboration with Marketing Clients **P48 Marketing Company**  
 **Group project by:** Sonia Singh, Connor Stimptson, Garret Fitorio and Bria Dean
 
 
